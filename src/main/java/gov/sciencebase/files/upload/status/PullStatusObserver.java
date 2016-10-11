@@ -18,13 +18,13 @@ class PullStatusObserver implements Observer<PullStatusUpdate> {
     @Override
     public void onCompleted() {
         messagingTemplate.convertAndSendToUser(userLink.username, "/queue/pull-status",
-                PullStatusUpdate.createStatusUpdate(PullStatus.COMPLETED).withMessage("Upload completed"));
+                PullStatusUpdate.createStatusUpdate(PullStatus.COMPLETED, userLink).withMessage("Upload (" + userLink.url + ") completed"));
     }
 
     @Override
     public void onError(Throwable e) {
         messagingTemplate.convertAndSendToUser(userLink.username, "/queue/pull-status",
-                PullStatusUpdate.createStatusUpdate(PullStatus.FAILED).withMessage(e.getMessage()));
+                PullStatusUpdate.createStatusUpdate(PullStatus.FAILED, userLink).withMessage(e.getMessage()));
     }
 
     @Override

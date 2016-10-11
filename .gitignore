@@ -142,3 +142,6 @@ tramp
 
 # sftp configuration file
 sftp-config.json
+
+### ASCIIDoctor
+.asciidoctor

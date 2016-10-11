@@ -3,11 +3,13 @@ package gov.sciencebase.files.upload.status;
 class PullStatusUpdate {
     PullStatus status;
     private String message;
+    private String url;
     private Float percentComplete;
 
-    static PullStatusUpdate createStatusUpdate(PullStatus status) {
+    static PullStatusUpdate createStatusUpdate(PullStatus status, UserLink userLink) {
         PullStatusUpdate statusUpdate = new PullStatusUpdate();
         statusUpdate.status = status;
+        statusUpdate.url = userLink.url;
         return statusUpdate;
     }
 
@@ -30,7 +32,7 @@ class PullStatusUpdate {
             return message;
         }
 
-        return status.toString() + ": " + percentComplete + "% Complete";
+        return status.toString() + ": (" + url + ") " + percentComplete + "% Complete";
     }
 
     public Float getPercentComplete() {

@@ -1,0 +1,42 @@
+= upload-status
+
+.Upload Workflow
+[ditaa, "upload-workflow"]
+----
+                                +------------------+
+                                |                  |
+                 Auth           |  OAuth2/OpenID   |
+            +------------------>|     Connect      |
+            |                   +------------------+
+            |
++--------------+   connect '/upload-status-websocket'     +------------------+
+|              |----------------------------------------->|                  |
+|  link-picker |  send PullLinkMessage '/app/pull-link'   |  upload-status   |
+|              |----------------------------------------->|                  |
+|              | subscribe/recv '/user/queue/pull-status' |                  |
+|              |<-----------------------------------------|                  |
++--------------+                                          +------------------+
+----
+
+
+upload-status communicates via WebSockets API. Use a WebSockets client to connect to `/upload-status-websocket`.
+
+To start a link download send a `PullLinkMessage` to `/app/pull-link`:
+
+[source, json]
+----
+{
+    "link": "http://www.example.com/file.zip"
+}
+----
+
+Receive `PullStatusUpdate` messages from `/user/queue/pull-status`:
+
+[source, json]
+----
+{
+    "status": "<one of: PENDING, FAILED, COMPLETED, STARTED>",
+    "message": "STARTED: 83.33% Complete",
+    "percentComplete": 83.33
+}
+----

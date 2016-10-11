@@ -51,7 +51,7 @@ class LinkPuller {
 
                     bufferedOutputStream.write(data, 0, x);
 
-                    subscriber.onNext(PullStatusUpdate.createStatusUpdate(PullStatus.STARTED)
+                    subscriber.onNext(PullStatusUpdate.createStatusUpdate(PullStatus.STARTED, userLink)
                                                       .withProgress(downloadedFileSize, completeFileSize));
                 }
                 bufferedOutputStream.close();
