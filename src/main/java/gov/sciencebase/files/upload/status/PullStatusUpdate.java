@@ -3,7 +3,7 @@ package gov.sciencebase.files.upload.status;
 class PullStatusUpdate {
     PullStatus status;
     private String message;
-    private Integer percentComplete;
+    private Float percentComplete;
 
     static PullStatusUpdate createStatusUpdate(PullStatus status) {
         PullStatusUpdate statusUpdate = new PullStatusUpdate();
@@ -12,7 +12,7 @@ class PullStatusUpdate {
     }
 
     PullStatusUpdate withProgress(int downloadedFileSize, int completeFileSize) {
-        this.percentComplete = ((downloadedFileSize / completeFileSize) * 100);
+        this.percentComplete = (downloadedFileSize * 100f) / completeFileSize;
         return this;
     }
 
@@ -33,7 +33,7 @@ class PullStatusUpdate {
         return status.toString() + ": " + percentComplete + "% Complete";
     }
 
-    public Integer getPercentComplete() {
+    public Float getPercentComplete() {
         return percentComplete;
     }
 }

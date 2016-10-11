@@ -1,5 +1,6 @@
 package gov.sciencebase.files.upload.status;
 
+import org.apache.commons.io.FilenameUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import rx.Observable;
@@ -35,7 +36,7 @@ class LinkPuller {
                 HttpURLConnection httpURLConnection = (HttpURLConnection) url.openConnection();
 
                 int completeFileSize = httpURLConnection.getContentLength();
-                String fileName = url.getFile();
+                String fileName = FilenameUtils.getName(userLink.url);
 
                 BufferedInputStream bufferedInputStream = new BufferedInputStream(httpURLConnection.getInputStream());
                 FileOutputStream fileOutputStream = new FileOutputStream(new File("/tmp", fileName));

@@ -18,8 +18,8 @@ function connect() {
     stompClient.connect({}, function (frame) {
         setConnected(true);
         console.log('Connected: ' + frame);
-        stompClient.subscribe('/user/queue/pullStatus', function (statusUpdate) {
-            showStatus(JSON.parse(statusUpdate.message).content);
+        stompClient.subscribe('/user/queue/pull-status', function (statusUpdate) {
+            showStatus(JSON.parse(statusUpdate.body).message);
         });
     });
 }
@@ -33,7 +33,7 @@ function disconnect() {
 }
 
 function sendName() {
-    stompClient.send("/app/pullLink", {}, JSON.stringify({'link': $("#url").val()}));
+    stompClient.send("/app/pull-link", {}, JSON.stringify({'link': $("#url").val()}));
 }
 
 function showStatus(message) {
