@@ -2,4 +2,5 @@
 <configuration>
     <include resource="org/springframework/boot/logging/logback/base.xml"/>
     <!--<logger name="org.springframework.messaging" level="TRACE"/>-->
+    <!--<logger name="gov.sciencebase.files.upload.status.S3PutObjectRequestListener" level="TRACE"/>-->
 </configuration>

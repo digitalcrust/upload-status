@@ -4,7 +4,7 @@ class PullStatusUpdate {
     PullStatus status;
     private String message;
     private String url;
-    private Float percentComplete;
+    private long percentComplete;
 
     static PullStatusUpdate createStatusUpdate(PullStatus status, UserLink userLink) {
         PullStatusUpdate statusUpdate = new PullStatusUpdate();
@@ -13,8 +13,8 @@ class PullStatusUpdate {
         return statusUpdate;
     }
 
-    PullStatusUpdate withProgress(int downloadedFileSize, int completeFileSize) {
-        this.percentComplete = (downloadedFileSize * 100f) / completeFileSize;
+    PullStatusUpdate withProgress(long downloadedFileSize, long completeFileSize) {
+        this.percentComplete = (downloadedFileSize * 100L) / completeFileSize;
         return this;
     }
 
@@ -32,10 +32,18 @@ class PullStatusUpdate {
             return message;
         }
 
+        if (status == PullStatus.COMPLETED) {
+            return "Upload (" + url + ") completed";
+        }
+
+        if (status == PullStatus.FAILED) {
+            return "Upload(" + url + ") failed";
+        }
+
         return status.toString() + ": (" + url + ") " + percentComplete + "% Complete";
     }
 
-    public Float getPercentComplete() {
+    public long getPercentComplete() {
         return percentComplete;
     }
 }
