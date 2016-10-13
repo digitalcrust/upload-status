@@ -3,18 +3,17 @@
 .Upload Workflow
 [ditaa, "upload-workflow"]
 ----
-                                +------------------+
-                                |                  |
-                 Auth           |  OAuth2/OpenID   |
-            +------------------>|     Connect      |
-            |                   +------------------+
-            |
-+--------------+   connect '/upload-status-websocket'     +------------------+
-|              |----------------------------------------->|                  |
-|  link-picker |  send PullLinkMessage '/app/pull-link'   |  upload-status   |
-|              |----------------------------------------->|                  |
-|              | subscribe/recv '/user/queue/pull-status' |                  |
-|              |<-----------------------------------------|                  |
+                                +------------------+      /------------------\
+                 Auth           |  OAuth2/OpenID   |      |   Some link      |
+            +------------------>|     Connect      |      |                  |
+            |                   +------------------+      \-=----------------/
+            |                                                           |
++--------------+   connect '/upload-status-websocket'     +-------------v----+
+|              |----------------------------------------->|                  |     /-----------\
+|  link-picker |  send PullLinkMessage '/app/pull-link'   |  upload-status   |     |           |
+|              |----------------------------------------->|                  |---->| AWS S3    |
+|              | subscribe/recv '/user/queue/pull-status' |                  |     |           |
+|              |<-----------------------------------------|                  |     \-----------/
 +--------------+                                          +------------------+
 ----
 
