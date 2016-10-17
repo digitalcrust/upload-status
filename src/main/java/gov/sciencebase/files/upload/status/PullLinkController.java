@@ -26,7 +26,6 @@ public class PullLinkController {
     }
 
     private String fetchUsername() {
-        UserDetails userDetails = (UserDetails)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        return userDetails.getUsername();
+        return (String) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
     }
 }

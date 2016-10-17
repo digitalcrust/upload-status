@@ -10,7 +10,7 @@ classes/
 .project
 .settings
 .classpath
-config/
+/config/
 
 
 # ----------------------------------------------
