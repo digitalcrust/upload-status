@@ -4,6 +4,7 @@ buildscript {
     }
     repositories {
         mavenLocal()
+        maven { url "http://artifactory/artifactory/libs-release" }
         jcenter()
     }
     dependencies {
@@ -20,12 +21,14 @@ apply plugin: "io.spring.dependency-management"
 jar {
     baseName = 'upload-status'
     version = '0.0.1-SNAPSHOT'
+    archiveName = 'upload-status.jar'
 }
 sourceCompatibility = 1.8
 targetCompatibility = 1.8
 
 repositories {
     mavenLocal()
+    maven { url "http://artifactory/artifactory/libs-release" }
     jcenter()
 }
 

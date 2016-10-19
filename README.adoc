@@ -39,3 +39,41 @@ Receive `PullStatusUpdate` messages from `/user/queue/pull-status`:
     "percentComplete": 83.33
 }
 ----
+
+== Configuration
+
+To configure the application for development include a config/ directory with application.yml or application.properties
+that directs the app to the correct s3 bucket/path and authentication. Here is an example:
+
+[source, yaml]
+s3:
+  bucketname: "my-bucket"
+  bucketpath: "my-path"
+google:
+  client:
+    clientId: longstringofstuff.apps.googleusercontent.com
+    clientSecret: buncha-stuff
+    accessTokenUri: https://www.googleapis.com/oauth2/v4/token
+    userAuthorizationUri: https://accounts.google.com/o/oauth2/auth
+    clientAuthenticationScheme: form
+    scope: profile email
+  resource:
+    userInfoUri: https://www.googleapis.com/plus/v1/people/me
+    preferTokenInfo: false
+
+
+The application also needs AWS Credentials. It uses link:http://docs.aws.amazon.com/AWSJavaSDK/latest/javadoc/index.html?com/amazonaws/auth/DefaultAWSCredentialsProviderChain.html[] to get them.
+
+== Kubernetes
+
+Create a namespace for the production deploy: ```kubectl create ns upload-status```
+
+Make sure the ```application.yml``` and AWS credentials are supplied to the container. ```application.yml``` is supplied
+in the link:https://my.usgs.gov/bitbucket/projects/SB/repos/config/browse/digitalcrust/esip[config] project.
+
+Prepare and send the aws credentials as environment variable secrets: link:http://kubernetes.io/docs/user-guide/secrets/#using-secrets-as-environment-variables[].
+Use link:k8s/aws-credentials.yaml[aws-credentials.yaml] as an example and insert the access keys base64 encoded (so they
+can be in binary this isn't for security):
+
+[source, bash]
+echo -n "the_access_credentials" | base64
