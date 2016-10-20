@@ -31,7 +31,7 @@ spec:
           readOnly: true
         resources:
           limits:
-            memory: "500Mi"
+            memory: "1000Mi"
             cpu: "100m"
         ports:
         - name: web
