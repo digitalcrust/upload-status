@@ -79,6 +79,7 @@ class PullLinkService {
     private ObjectMetadata metadataFromConnection(HttpURLConnection connection) {
         ObjectMetadata metadata = new ObjectMetadata();
         metadata.setContentLength(connection.getContentLengthLong());
+        metadata.setContentType(connection.getContentType());
         return metadata;
     }
 }
