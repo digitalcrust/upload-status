@@ -9,6 +9,7 @@ import org.springframework.web.socket.config.annotation.StompEndpointRegistry;
 @Configuration
 @EnableWebSocketMessageBroker
 public class WebSocketConfig extends AbstractWebSocketMessageBrokerConfigurer {
+    private final String namespace = "/upload-status-websocket";
 
     @Override
     public void configureMessageBroker(MessageBrokerRegistry config) {
@@ -19,6 +20,7 @@ public class WebSocketConfig extends AbstractWebSocketMessageBrokerConfigurer {
 
     @Override
     public void registerStompEndpoints(StompEndpointRegistry registry) {
-        registry.addEndpoint("/upload-status-websocket").withSockJS();
+        registry.addEndpoint(namespace).setAllowedOrigins("*").withSockJS();
+//		registry.addEndpoint("/upload-status-websocket").withSockJS();
     }
 }

@@ -1,5 +1,6 @@
 package gov.sciencebase.files.upload.status;
 
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.security.SecurityProperties;
 import org.springframework.boot.autoconfigure.security.oauth2.resource.ResourceServerProperties;
@@ -23,9 +24,17 @@ import org.springframework.security.web.authentication.www.BasicAuthenticationFi
 import org.springframework.security.web.csrf.CookieCsrfTokenRepository;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.security.oauth2.config.annotation.web.configuration.EnableResourceServer;
+import org.springframework.web.filter.CompositeFilter;
 
+import org.springframework.security.oauth2.config.annotation.web.configuration.ResourceServerConfigurerAdapter;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 import javax.servlet.Filter;
 import java.security.Principal;
+
 
 @Configuration
 @EnableOAuth2Client
@@ -36,19 +45,34 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     @Autowired
     OAuth2ClientContext oauth2ClientContext;
 
-    @RequestMapping("/user")
+//Different from spring boot example which returns a map with name as a key and principle.name as a value
+    @RequestMapping({"/user", "/me"})
     public Principal user(Principal principal) {
         return principal;
+        // final Map<String, String> map = new LinkedHashMap<>();
+        // map.put("name", principal.getName());
+        // return map;
     }
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http.antMatcher("/**").authorizeRequests().antMatchers("/", "/login**").permitAll().anyRequest()
-                .authenticated().and().exceptionHandling()
+        // @formatter:off
+
+        http.antMatcher("/**").authorizeRequests()
+                .antMatchers("/", "/login**", "/webjars/**").permitAll()
+                .anyRequest().authenticated().and().exceptionHandling()
                 .authenticationEntryPoint(new LoginUrlAuthenticationEntryPoint("/")).and().logout()
-                .logoutSuccessUrl("/").permitAll().and().csrf()
+                .logoutSuccessUrl("/crazyeyes").permitAll().and().csrf()
                 .csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse()).and()
                 .addFilterBefore(ssoFilter(), BasicAuthenticationFilter.class);
+        // @formatter:on
+        //Original below
+        // http.antMatcher("/**").authorizeRequests().antMatchers("/", "/login**").permitAll()
+        //         .anyRequest().authenticated().and().exceptionHandling()
+        //         .authenticationEntryPoint(new LoginUrlAuthenticationEntryPoint("/")).and().logout()
+        //         .logoutSuccessUrl("/").permitAll().and().csrf()
+        //         .csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse()).and()
+        //         .addFilterBefore(ssoFilter(), BasicAuthenticationFilter.class);
     }
 
     @Bean
@@ -59,26 +83,82 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
         return registration;
     }
 
+
+
+    @Bean
+    @ConfigurationProperties("google")
+    public ClientResources google() {
+        ClientResources clientResources = new ClientResources();
+        return clientResources;
+    }
+
+    @Bean
+    @ConfigurationProperties("github")
+    public ClientResources github() {
+        return new ClientResources();
+    }
+
+    @Bean
+    @ConfigurationProperties("facebook")
+    public ClientResources facebook() {
+        return new ClientResources();
+    }
+    // private Filter ssoFilter() {
+    //     OAuth2ClientAuthenticationProcessingFilter googleFilter = new OAuth2ClientAuthenticationProcessingFilter(
+    //             "/login/google");
+    //     OAuth2RestTemplate googleTemplate = new OAuth2RestTemplate(google(), oauth2ClientContext);
+    //     googleFilter.setRestTemplate(googleTemplate);
+    //     googleFilter.setTokenServices(
+    //             new UserInfoTokenServices(client.getResource().getUserInfoUri(), client.getClient().getClientId()));
+    //     return googleFilter;
+    // }
+    private Filter ssoFilter(ClientResources client, String path) {
+        OAuth2ClientAuthenticationProcessingFilter filter = new OAuth2ClientAuthenticationProcessingFilter(
+                path);
+        OAuth2RestTemplate template = new OAuth2RestTemplate(client.getClient(), oauth2ClientContext);
+        filter.setRestTemplate(template);
+        filter.setTokenServices(new UserInfoTokenServices(
+                client.getResource().getUserInfoUri(), client.getClient().getClientId()));
+        return filter;
+    }
     private Filter ssoFilter() {
-        OAuth2ClientAuthenticationProcessingFilter googleFilter = new OAuth2ClientAuthenticationProcessingFilter(
-                "/login/google");
-        OAuth2RestTemplate googleTemplate = new OAuth2RestTemplate(google(), oauth2ClientContext);
-        googleFilter.setRestTemplate(googleTemplate);
-        googleFilter.setTokenServices(
-                new UserInfoTokenServices(googleResource().getUserInfoUri(), google().getClientId()));
-        return googleFilter;
+        CompositeFilter filter = new CompositeFilter();
+        List<Filter> filters = new ArrayList<>();
+        // filters.add(ssoFilter(facebook(), "/login/facebook"));
+        // filters.add(ssoFilter(github(), "/login/github"));
+        filters.add(ssoFilter(google(), "/login/google"));
+        filter.setFilters(filters);
+        return filter;
     }
+//From spring boot example  
+    // @Bean
+    // @ConfigurationProperties("google")
+    // public ClientResources google() {
+    //     ClientResources clientResources = new ClientResources();
+    //     return clientResources;
+    // }
+//Original below, unsure why two properties    
+    // @Bean
+    // @ConfigurationProperties("google.client")
+    // public AuthorizationCodeResourceDetails google() {
+    //     return new AuthorizationCodeResourceDetails();
+    // }
 
-    @Bean
-    @ConfigurationProperties("google.client")
-    public AuthorizationCodeResourceDetails google() {
-        return new AuthorizationCodeResourceDetails();
+    // @Bean
+    // @ConfigurationProperties("google.resource")
+    // public ResourceServerProperties googleResource() {
+    //     return new ResourceServerProperties();
+    // }
+
+// from spring boot example, not sure why it is missing
+    @Configuration
+    @EnableResourceServer
+    protected static class ResourceServerConfiguration extends ResourceServerConfigurerAdapter {
+        @Override
+        public void configure(HttpSecurity http) throws Exception {
+            // @formatter:off
+            http.antMatcher("/me").authorizeRequests().anyRequest().authenticated();
+            // @formatter:on
+        }
     }
-
-    @Bean
-    @ConfigurationProperties("google.resource")
-    public ResourceServerProperties googleResource() {
-        return new ResourceServerProperties();
-    }
-
 }

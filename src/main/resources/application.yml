@@ -1,0 +1,23 @@
+server.port: 9000
+
+s3:
+  bucketname: "derek10usgs"
+  bucketpath: "somepath"
+google:
+  client:
+    clientId: [google client id here, 72 characters long]
+    clientSecret: [google secret here, 24 characters long]
+    accessTokenUri: https://www.googleapis.com/oauth2/v4/token
+    userAuthorizationUri: https://accounts.google.com/o/oauth2/auth
+    clientAuthenticationScheme: form
+    scope: profile email
+  resource:
+    userInfoUri: https://www.googleapis.com/plus/v1/people/me
+    preferTokenInfo: false
+# security:
+#   basic:
+#     enabled: true
+
+logging:
+  level:
+    org.springframework.security: DEBUG
