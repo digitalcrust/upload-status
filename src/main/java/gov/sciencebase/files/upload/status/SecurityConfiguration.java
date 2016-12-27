@@ -59,7 +59,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
         // @formatter:off
 
         http.antMatcher("/**").authorizeRequests()
-                .antMatchers("/", "/login**", "/webjars/**").permitAll()
+                .antMatchers("/", "/login**", "/webjars/**", "/sockjs.js", "/bundle.js", "/stomp.js", "/bundle.js.map", "/s3moveitem.svg").permitAll()
                 .anyRequest().authenticated().and().exceptionHandling()
                 .authenticationEntryPoint(new LoginUrlAuthenticationEntryPoint("/")).and().logout()
                 .logoutSuccessUrl("/crazyeyes").permitAll().and().csrf()
