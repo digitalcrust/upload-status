@@ -77,3 +77,31 @@ can be in binary this isn't for security):
 
 [source, bash]
 echo -n "the_access_credentials" | base64
+
+
+== Development Docker Standalone Notes
+
+=== Update Dockerfile to Import DOI Certificate
+
+From the project directory, copy the certificate to a certs directory:
+
+`uploadStatus$ mkdir certs`
+
+`cp /etc/ssl/certs/DOIRootCA.pem certs/DOIRootCA.pem`
+
+Then edit the Dockerfile, adding the following lines
+
+`ADD /certs/DOIRootCA.crt DOIRootCA.crt`
+
+`RUN keytool -import -noprompt -trustcacerts -alias localhost -file DOIRootCA.crt -keystore $JAVA_HOME/jre/lib/security/cacerts -storepass changeit`
+
+=== Running with AWS Credentials, DO NOT DO THIS IN PRODUCTION
+
+In order to run docker image stand alone run this command:
+
+`docker run -e AWS_ACCESS_KEY_ID=[AWS_ID] -e AWS_SECRET_ACCESS_KEY=[AWS_ACCESS_KEY] -p 8080:8080 -it [imagename]`
+
+Replace values in brackets with actual values, e.g.
+
+`docker run -e AWS_ACCESS_KEY_ID=Aaaaaaaaaaaaaaaaaaaa -e AWS_SECRET_ACCESS_KEY=zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz -p 9000:9000 -it lucy/upload-status:latest`
+
