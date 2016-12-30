@@ -1,9 +1,10 @@
 buildscript {
     ext {
-        springBootVersion = '1.4.1.RELEASE'
+        springBootVersion = '1.4.2.RELEASE'
     }
     repositories {
         mavenLocal()
+        maven { url "https://ede.cr.usgs.gov/artifactory/libs-release" }
         maven { url "http://artifactory/artifactory/libs-release" }
         jcenter()
     }
@@ -15,7 +16,7 @@ buildscript {
 
 apply plugin: 'java'
 apply plugin: 'idea'
-apply plugin: 'spring-boot'
+apply plugin: 'org.springframework.boot'
 apply plugin: "io.spring.dependency-management"
 
 jar {
@@ -28,6 +29,7 @@ targetCompatibility = 1.8
 
 repositories {
     mavenLocal()
+    maven { url "https://ede.cr.usgs.gov/artifactory/libs-release" }
     maven { url "http://artifactory/artifactory/libs-release" }
     jcenter()
 }
@@ -61,3 +63,5 @@ dependencies {
     testCompile "org.spockframework:spock-core:1.0-groovy-2.4"
     testCompile "org.hamcrest:hamcrest-core:1.3"
 }
+
+bootRun.systemProperties = System.properties
