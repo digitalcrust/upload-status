@@ -12,7 +12,7 @@ spec:
         env: development
     spec:
       containers:
-      - name: dcquery-api
+      - name: upload-status
         image: sciencebase/upload-status:0.1
         env:
           - name: AWS_ACCESS_KEY_ID
