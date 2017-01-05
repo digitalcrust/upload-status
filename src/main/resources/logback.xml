@@ -4,5 +4,7 @@
     <!--<logger name="org.springframework.messaging" level="TRACE"/>-->
     <!--<logger name="org.springframework.security" level="TRACE"/>-->
     <!--<logger name="gov.sciencebase.files.upload.status.S3PutObjectRequestListener" level="TRACE"/>-->
+    <!--<logger name="org.apache" level="DEBUG" />-->
+    <!--<logger name="httpclient" level="DEBUG" />-->
     <logger name="com.amazonaws.services.s3.transfer" level="TRACE"/>
 </configuration>
