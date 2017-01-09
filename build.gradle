@@ -10,6 +10,7 @@ buildscript {
     dependencies {
         classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
         classpath "io.spring.gradle:dependency-management-plugin:0.5.4.RELEASE"
+        classpath "org.sonarsource.scanner.gradle:sonarqube-gradle-plugin:2.2.1"
     }
 }
 
@@ -17,6 +18,8 @@ apply plugin: 'java'
 apply plugin: 'idea'
 apply plugin: 'spring-boot'
 apply plugin: "io.spring.dependency-management"
+apply plugin: "org.sonarqube"
+apply plugin: 'jacoco'
 
 jar {
     baseName = 'upload-status'
