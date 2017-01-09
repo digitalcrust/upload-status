@@ -21,6 +21,10 @@ apply plugin: "io.spring.dependency-management"
 apply plugin: "org.sonarqube"
 apply plugin: 'jacoco'
 
+ext {
+    spockVersion = "1.0-groovy-2.4"
+}
+
 jar {
     baseName = 'upload-status'
     version = '0.0.1-SNAPSHOT'
@@ -60,6 +64,7 @@ dependencies {
 
     testCompile('org.springframework.boot:spring-boot-starter-test')
     testCompile "org.codehaus.groovy:groovy-all:2.4.1"
-    testCompile "org.spockframework:spock-core:1.0-groovy-2.4"
+    testCompile "org.spockframework:spock-core:${spockVersion}"
+    testCompile "org.spockframework:spock-spring:${spockVersion}"
     testCompile "org.hamcrest:hamcrest-core:1.3"
 }

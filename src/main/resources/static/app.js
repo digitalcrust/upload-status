@@ -17,7 +17,6 @@ function connect() {
     stompClient = Stomp.over(socket);
     stompClient.connect({}, function (frame) {
         setConnected(true);
-        console.log('Connected: ' + frame);
         stompClient.subscribe('/user/queue/pull-status', function (statusUpdate) {
             showStatus(JSON.parse(statusUpdate.body).message);
         });
@@ -29,7 +28,6 @@ function disconnect() {
         stompClient.disconnect();
     }
     setConnected(false);
-    console.log("Disconnected");
 }
 
 function sendName() {
