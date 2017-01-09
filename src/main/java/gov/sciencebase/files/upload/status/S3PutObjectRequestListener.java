@@ -3,11 +3,11 @@ package gov.sciencebase.files.upload.status;
 import com.amazonaws.event.ProgressEvent;
 import com.amazonaws.event.ProgressEventType;
 import com.amazonaws.event.ProgressListener;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
 
 class S3PutObjectRequestListener implements ProgressListener {
+
+    public static final String QUEUE_PULL_STATUS = "/queue/pull-status";
 
     private SimpMessagingTemplate messagingTemplate;
     private UserLink userLink;
@@ -23,17 +23,17 @@ class S3PutObjectRequestListener implements ProgressListener {
     @Override
     public void progressChanged(ProgressEvent progressEvent) {
         if (progressEvent.getEventType() == ProgressEventType.TRANSFER_COMPLETED_EVENT) {
-            messagingTemplate.convertAndSendToUser(userLink.username, "/queue/pull-status", fetchCompletedPayload());
+            messagingTemplate.convertAndSendToUser(userLink.username, QUEUE_PULL_STATUS, fetchCompletedPayload());
             return;
         }
 
         if (progressEvent.getEventType() == ProgressEventType.TRANSFER_FAILED_EVENT) {
-            messagingTemplate.convertAndSendToUser(userLink.username, "/queue/pull-status", fetchFailedPayload());
+            messagingTemplate.convertAndSendToUser(userLink.username, QUEUE_PULL_STATUS, fetchFailedPayload());
             return;
         }
 
         if (progressEvent.getBytesTransferred() > 0) {
-            messagingTemplate.convertAndSendToUser(userLink.username, "/queue/pull-status",
+            messagingTemplate.convertAndSendToUser(userLink.username, QUEUE_PULL_STATUS,
                     fetchInProgressPayLoad(progressEvent.getBytesTransferred()));
         }
     }

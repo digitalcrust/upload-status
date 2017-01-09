@@ -6,7 +6,7 @@ node {
     def namespace = getNamespace(env.BRANCH_NAME, appName)
     def environment = environmentFromBranchName(env.BRANCH_NAME)
 
-    hipchatSend(color: 'GREEN', message: "Starting build #${env.BUILD_NUMBER} for branch ${env.BRANCH_NAME} of ${appName}", notify: true, v2enabled: true)
+//    hipchatSend(color: 'GREEN', message: "Starting build #${env.BUILD_NUMBER} for branch ${env.BRANCH_NAME} of ${appName}", notify: true, v2enabled: true)
 
     if (env.BRANCH_NAME != 'master') {
         stage "Deploy Config"
@@ -37,7 +37,7 @@ node {
                 sh('docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD')
             }
             sh("docker push ${imageTag}")
-            hipchatSend(color: 'GREEN', message: "pushed ${imageTag} to docker registry", notify: true, v2enabled: true)
+//            hipchatSend(color: 'GREEN', message: "pushed ${imageTag} to docker registry", notify: true, v2enabled: true)
         }
 
         stage("Deploy Application") {
