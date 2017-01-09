@@ -9,8 +9,6 @@ import org.springframework.messaging.simp.SimpMessagingTemplate;
 
 class S3PutObjectRequestListener implements ProgressListener {
 
-    private final Logger log = LoggerFactory.getLogger(S3PutObjectRequestListener.class);
-
     private SimpMessagingTemplate messagingTemplate;
     private UserLink userLink;
     private long totalBytesTransferred;

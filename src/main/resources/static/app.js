@@ -15,7 +15,7 @@ function setConnected(connected) {
 function connect() {
     var socket = new SockJS('/upload-status-websocket');
     stompClient = Stomp.over(socket);
-    stompClient.connect({}, function (frame) {
+    stompClient.connect({}, function () {
         setConnected(true);
         stompClient.subscribe('/user/queue/pull-status', function (statusUpdate) {
             showStatus(JSON.parse(statusUpdate.body).message);
