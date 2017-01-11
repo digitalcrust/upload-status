@@ -3,6 +3,9 @@ package gov.sciencebase.files.upload.status;
 public class PullLinkMessage {
     private String link;
 
+    public PullLinkMessage() {
+    }
+
     public PullLinkMessage(String link) {
         this.link = link;
     }
