@@ -63,7 +63,6 @@ dependencies {
     compile("io.reactivex:rxjava:1.2.1")
     compile("commons-io:commons-io:2.5")
     compile 'com.amazonaws:aws-java-sdk-s3'
-    compile group: 'org.springframework', name: 'spring-core', version: '4.3.3.RELEASE'
 
     testCompile('org.springframework.boot:spring-boot-starter-test')
     testCompile "org.codehaus.groovy:groovy-all:2.4.1"
