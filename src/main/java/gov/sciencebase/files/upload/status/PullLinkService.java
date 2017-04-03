@@ -59,7 +59,7 @@ class PullLinkService {
         URL url  = new URL(userLink.url);
         HttpURLConnection httpURLConnection = (HttpURLConnection) url.openConnection();
 
-        String fileName = FilenameUtils.getName(userLink.url);
+        String fileName = userLink.fileName != null ? userLink.fileName : FilenameUtils.getName(userLink.url);
         ObjectMetadata metadata = metadataFromConnection(httpURLConnection);
 
         InputStream linkInputStream = httpURLConnection.getInputStream();

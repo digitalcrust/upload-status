@@ -19,7 +19,7 @@ public class PullLinkController {
     @MessageMapping("/pull-link")
     @SendToUser("/queue/pull-status")
     public PullStatusUpdate startPullingLink(PullLinkMessage pullLinkMessageMessage) throws Exception {
-        UserLink userLink = new UserLink(fetchUsername(), pullLinkMessageMessage.getLink());
+        UserLink userLink = new UserLink(fetchUsername(), pullLinkMessageMessage.getLink(), pullLinkMessageMessage.getFileName());
         pullLinkService.pull(userLink);
         return PullStatusUpdate.createStatusUpdate(PullStatus.PENDING, userLink).withMessage("Starting " + userLink.url + " ...");
     }

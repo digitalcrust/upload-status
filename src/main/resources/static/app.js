@@ -31,7 +31,7 @@ function disconnect() {
 }
 
 function sendName() {
-    stompClient.send("/app/pull-link", {}, JSON.stringify({'link': $("#url").val()}));
+    stompClient.send("/app/pull-link", {}, JSON.stringify({'link': $("#url").val(), 'fileName': $("#fileName").val()}));
 }
 
 function showStatus(message) {
