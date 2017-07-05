@@ -40,6 +40,9 @@ Receive `PullStatusUpdate` messages from `/user/queue/pull-status`:
 }
 ----
 
+== Dependencies
+upload-status requires an s3 bucket to transload files to. This should be configured in the application.yml file.
+
 == Configuration
 
 To configure the application for development include a config/ directory with application.yml or application.properties
@@ -64,7 +67,15 @@ google:
 
 The application also needs AWS Credentials. It uses link:http://docs.aws.amazon.com/AWSJavaSDK/latest/javadoc/index.html?com/amazonaws/auth/DefaultAWSCredentialsProviderChain.html[] to get them.
 
-== Kubernetes
+== Testing
+`./gradlew test`
+
+== Build
+
+`./gradlew build`
+
+== Deployment
+=== Kubernetes
 
 Create a namespace for the production deploy: ```kubectl create ns upload-status```
 
