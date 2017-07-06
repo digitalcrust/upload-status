@@ -4,6 +4,7 @@ import org.springframework.boot.autoconfigure.security.oauth2.resource.ResourceS
 import org.springframework.boot.context.properties.NestedConfigurationProperty;
 import org.springframework.security.oauth2.client.token.grant.code.AuthorizationCodeResourceDetails;
 
+// identical to class in spring boot example SocialApplication.java
 class ClientResources {
 
     @NestedConfigurationProperty

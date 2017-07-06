@@ -28,6 +28,7 @@ class PullStatusUpdate {
     }
 
     public String getMessage() {
+        System.out.println("PullStatusUpdated.completed");
         if (message != null) {
             return message;
         }

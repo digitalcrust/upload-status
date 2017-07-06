@@ -15,8 +15,9 @@ function setConnected(connected) {
 function connect() {
     var socket = new SockJS('/upload-status-websocket');
     stompClient = Stomp.over(socket);
-    stompClient.connect({}, function () {
+    stompClient.connect({}, function (frame) {
         setConnected(true);
+        console.log('Connected: ' + frame);
         stompClient.subscribe('/user/queue/pull-status', function (statusUpdate) {
             showStatus(JSON.parse(statusUpdate.body).message);
         });
@@ -28,10 +29,12 @@ function disconnect() {
         stompClient.disconnect();
     }
     setConnected(false);
+    console.log("Disconnected");
 }
 
 function sendName() {
-    stompClient.send("/app/pull-link", {}, JSON.stringify({'link': $("#url").val(), 'fileName': $("#fileName").val()}));
+    stompClient.send("/app/pull-link", {}, JSON.stringify({'link': $("#url").val()}));
+//    stompClient.send("/app/pull-link", {}, JSON.stringify({'link': $("#url").val(), 'fileName': $("#fileName").val()}));
 }
 
 function showStatus(message) {

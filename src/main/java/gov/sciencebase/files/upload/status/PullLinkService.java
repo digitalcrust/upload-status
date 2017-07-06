@@ -16,6 +16,7 @@ import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.net.URLConnection;
 
 @Service
 class PullLinkService {
@@ -57,9 +58,10 @@ class PullLinkService {
 
     private void uploadLink(UserLink userLink) throws IOException {
         URL url  = new URL(userLink.url);
-        HttpURLConnection httpURLConnection = (HttpURLConnection) url.openConnection();
+        URLConnection httpURLConnection = url.openConnection();
 
-        String fileName = userLink.fileName != null ? userLink.fileName : FilenameUtils.getName(userLink.url);
+        String fileName = FilenameUtils.getName(userLink.url);
+//        String fileName = userLink.fileName != null ? userLink.fileName : FilenameUtils.getName(userLink.url);
         ObjectMetadata metadata = metadataFromConnection(httpURLConnection);
 
         InputStream linkInputStream = httpURLConnection.getInputStream();

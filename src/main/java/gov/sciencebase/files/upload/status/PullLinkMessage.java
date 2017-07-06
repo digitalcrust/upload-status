@@ -2,21 +2,24 @@ package gov.sciencebase.files.upload.status;
 
 public class PullLinkMessage {
     private String link;
-    private String fileName;
+//    private String fileName;
 
     public PullLinkMessage() {
     }
 
-    public PullLinkMessage(String link, String fileName) {
+    public PullLinkMessage(String link) {
         this.link = link;
-        this.fileName = fileName;
     }
+//    public PullLinkMessage(String link, String fileName) {
+//        this.link = link;
+//        this.fileName = fileName;
+//    }
 
     public String getLink() {
         return link;
     }
 
-    public String getFileName() {
-        return fileName;
-    }
+//    public String getFileName() {
+//        return fileName;
+//    }
 }
