@@ -78,7 +78,7 @@ class PullLinkService {
         transferManager.upload(request);
     }
 
-    private ObjectMetadata metadataFromConnection(HttpURLConnection connection) {
+    private ObjectMetadata metadataFromConnection(URLConnection connection) {
         ObjectMetadata metadata = new ObjectMetadata();
         metadata.setContentLength(connection.getContentLengthLong());
         metadata.setContentType(connection.getContentType());
