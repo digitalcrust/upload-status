@@ -22,11 +22,20 @@
 body {
   font-family: "Helvetica Neue",Helvetica,Arial,"Lucida Grande",sans-serif;
 }
+label {
+  margin-right: 8px;
+}
 .scienceBaseItem  {
   padding: 0.5rem;
   background-color: rgb(245,245,245);
   border: 1px solid #bbb;
   margin: 5px 0 5px 0;
+}
+.websocket, .fileinput, .login {
+  margin: 8px 0;
+}
+.login {
+  float: right;
 }
 .title {
   font-weight: 700;

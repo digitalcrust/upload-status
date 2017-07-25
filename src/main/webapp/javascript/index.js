@@ -8,7 +8,8 @@ import '../css/general.css'
 import classNames from 'classnames'
 
 render(
-  <div className={classNames('App', 'container-full')}>
+  <div className={classNames('App', 'container')}>
+    <a className="login" href="/login/google">Login</a>
     <WebsocketConnection/>
     <User/>
     <Root/>

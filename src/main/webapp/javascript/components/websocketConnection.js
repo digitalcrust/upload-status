@@ -1,5 +1,5 @@
 import React, {Component} from "react"
-import { Button, FormGroup, FormControl } from 'react-bootstrap'
+import { Button, ButtonToolbar, FormGroup, FormControl } from 'react-bootstrap'
 import SockJS from 'sockjs-client'
 import webstomp from 'webstomp-client'
 import ReactDOM from 'react-dom'
@@ -50,25 +50,30 @@ export default class WebsocketConnection extends Component {
   }
   render() {
     return (
-      <div className="row">
-        <div className="col-sm-4">
-          <form className="form-inline">
-            <FormGroup>
-              <label htmlFor="connect">WebSocket connection:</label>
-              <Button id="connect" onClick={this.connectToServer.bind(this)}>Connect</Button>
-              <Button id="disconnect" onClick={this.disconnectFromServer.bind(this)}>Disconnect</Button>
-            </FormGroup>
-          </form>
+      <div>
+        <div className="row websocket">
+          <div className="col-sm-12">
+            <form className="form-inline">
+              <FormGroup>
+                <ButtonToolbar>
+                  <Button bsStyle="primary" id="connect" onClick={this.connectToServer.bind(this)}>WebSocket Connect</Button>
+                  <Button bsStyle="warning" id="disconnect" onClick={this.disconnectFromServer.bind(this)}>Web Socket Disconnect</Button>
+                </ButtonToolbar>
+              </FormGroup>
+            </form>
+          </div>
         </div>
-        <div className="col-sm-8">
-          <form className="form-inline">
-            <FormGroup>
-              <label htmlFor="url">What is the URL?</label>
-              <FormControl type="text" id="url" ref="url" placeholder="http://URL-to-file/example.txt" />
-              <FormControl type="text" id="fileName" ref="fileName" placeholder="example.txt" />
-            </FormGroup>
-            <Button id="send" onClick={this.sendName.bind(this)}>Send</Button>
-          </form>
+        <div className="row fileinput">
+          <div className="col-sm-8">
+            <form className="form-inline">
+              <FormGroup>
+                <label htmlFor="url">What is the URL?</label>
+                <FormControl type="text" id="url" ref="url" placeholder="http://URL-to-file/example.txt" />
+                <FormControl type="text" id="fileName" ref="fileName" placeholder="example.txt" />
+              </FormGroup>
+              <Button id="send" onClick={this.sendName.bind(this)}>Send</Button>
+            </form>
+          </div>
         </div>
       </div>
     );
