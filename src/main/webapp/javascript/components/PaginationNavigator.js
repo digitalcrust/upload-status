@@ -4,7 +4,7 @@ import '../../css/general.css'
 
 export default class PaginationNavigator extends Component {
   toggleDescriptions() {
-    $('.description').toggle()
+    document.querySelectorAll('.description').forEach(el => el.style.display = el.style.display === 'none' ? 'block' : 'none')
   }
   render () {
     return (

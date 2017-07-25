@@ -30,18 +30,17 @@ body {
 }
 .title {
   font-weight: 700;
-  font-size: 1.0rem;
+  font-size: 14px;
   color: rgb(51, 122, 183);
   font-weight: 400;
   text-decoration: none;
 }
 .description {
-  font-size: 0.7rem;
+  font-size: 14px;
   max-height: 4rem;
   overflow-y: auto;
 }
 .files {
-  font-size: 0.9rem;
   margin-left: 4px;
 }
 .filelink {
@@ -51,10 +50,10 @@ body {
   margin-left: 1em;
 }
 .movefile {
-  margin-left: 1em;
+  margin-right: 4px;
 }
 .movefile button {
-  padding:0px;
+  padding: 0 4px;
   height: 26px;
 }
 .movefile button img {

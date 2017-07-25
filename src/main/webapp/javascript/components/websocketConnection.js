@@ -51,7 +51,7 @@ export default class WebsocketConnection extends Component {
   render() {
     return (
       <div className="row">
-        <div className="col-md-4">
+        <div className="col-sm-4">
           <form className="form-inline">
             <FormGroup>
               <label htmlFor="connect">WebSocket connection:</label>
@@ -60,7 +60,7 @@ export default class WebsocketConnection extends Component {
             </FormGroup>
           </form>
         </div>
-        <div className="col-md-4">
+        <div className="col-sm-8">
           <form className="form-inline">
             <FormGroup>
               <label htmlFor="url">What is the URL?</label>
