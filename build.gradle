@@ -1,9 +1,10 @@
 buildscript {
     ext {
-        springBootVersion = '1.4.1.RELEASE'
+        springBootVersion = '1.5.3.RELEASE'
     }
     repositories {
         mavenLocal()
+        maven { url "https://ede.cr.usgs.gov/artifactory/libs-release" }
         maven { url "http://artifactory/artifactory/libs-release" }
         jcenter()
     }
@@ -11,13 +12,22 @@ buildscript {
         classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
       classpath "io.spring.gradle:dependency-management-plugin:0.5.4.RELEASE"
       classpath 'com.moowork.gradle:gradle-node-plugin:0.12'
+      classpath "org.sonarsource.scanner.gradle:sonarqube-gradle-plugin:2.2.1"
     }
 }
 
 apply plugin: 'java'
 apply plugin: 'idea'
-apply plugin: 'spring-boot'
+apply plugin: 'org.springframework.boot'
 apply plugin: "io.spring.dependency-management"
+
+apply plugin: "org.sonarqube"
+apply plugin: 'jacoco'
+
+ext {
+    spockVersion = "1.0-groovy-2.4"
+}
+
 apply plugin: 'war'
 apply plugin: "com.moowork.node"
 
@@ -25,7 +35,6 @@ node {
   version = '5.8.0'
   npmVersion = '3.8.0'
   download = true
-  // distBaseUrl = Custom artifactory location here.
 }
 
 jar {
@@ -43,6 +52,7 @@ targetCompatibility = 1.8
 
 repositories {
     mavenLocal()
+    maven { url "https://ede.cr.usgs.gov/artifactory/libs-release" }
     maven { url "http://artifactory/artifactory/libs-release" }
     jcenter()
 }
@@ -80,7 +90,8 @@ dependencies {
 
     testCompile('org.springframework.boot:spring-boot-starter-test')
     testCompile "org.codehaus.groovy:groovy-all:2.4.1"
-    testCompile "org.spockframework:spock-core:1.0-groovy-2.4"
+    testCompile "org.spockframework:spock-core:${spockVersion}"
+    testCompile "org.spockframework:spock-spring:${spockVersion}"
     testCompile "org.hamcrest:hamcrest-core:1.3"
 }
 

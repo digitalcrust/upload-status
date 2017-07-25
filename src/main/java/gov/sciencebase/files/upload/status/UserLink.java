@@ -5,9 +5,9 @@ class UserLink {
     String url;
     String fileName;
 
-   UserLink(String username, String link, String fileName) {
-       this.username = username;
-       this.url = link;
-       this.fileName = fileName;
-   }
+    UserLink(String username, String link, String fileName) {
+        this.username = username;
+        this.url = link;
+        this.fileName = fileName;
+    }
 }
