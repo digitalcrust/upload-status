@@ -48,6 +48,11 @@ crashlytics.properties
 crashlytics-build.properties
 
 
+######################
+# Node
+######################
+/node/**
+/node_modules/**
 ### Eclipse ###
 *.pydevproject
 .metadata

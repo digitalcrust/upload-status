@@ -36,7 +36,6 @@ public class PullLinkController {
 
     @Autowired
     public PullLinkController(PullLinkService pullLinkService) {
-      System.out.println("------------------PullLinkController-----------------------------");
         this.pullLinkService = pullLinkService;
     }
     @RequestMapping(value = "/objectmetadata/{key}", method = RequestMethod.GET, produces = "application/json")
@@ -56,13 +55,14 @@ public class PullLinkController {
     @MessageMapping("/pull-link")
     @SendToUser("/queue/pull-status")
     public PullStatusUpdate startPullingLink(PullLinkMessage pullLinkMessageMessage) throws Exception {
-      System.out.println("------------------startPullingLink-----------------------------");
-        UserLink userLink = new UserLink(fetchUsername(), pullLinkMessageMessage.getLink());
+        UserLink userLink = new UserLink(fetchUsername(), pullLinkMessageMessage.getLink(), pullLinkMessageMessage.getFileName());
         pullLinkService.pull(userLink);
         return PullStatusUpdate.createStatusUpdate(PullStatus.PENDING, userLink).withMessage("Starting " + userLink.url + " ...");
     }
 
     private String fetchUsername() {
-        return (String) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        return("derek");
+
+        //return (String) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
     }
 }
