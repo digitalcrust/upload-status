@@ -1,6 +1,5 @@
-FROM anapsix/alpine-java:8
-VOLUME /tmp
+FROM sciencebase/tomcat
 VOLUME /config
-COPY build/libs/upload-status.jar app.jar
-RUN sh -c 'touch /app.jar'
-ENTRYPOINT ["java","-Djava.security.egd=file:/dev/./urandom","-jar","/app.jar"]
+COPY build/libs/upload-status.jar /usr/local/tomcat/webapps/upload-status.war
+
+CMD ["catalina.sh", "run"]
