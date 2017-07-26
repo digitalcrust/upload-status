@@ -112,6 +112,21 @@ label {
   margin: 10px;
 }
 
+.status {
+  margin: 4px 0;
+  background-color: #DDD;
+  scroll: auto;
+  white-space: nowrap; 
+  padding: 2px 0;
+}
+.sbitems {
+  border: 1px solid #bbb;
+  margin: 10px;
+  padding: 10px;
+}
+.transferstatus-wrapper {  
+  margin-bottom: 2px;
+}
 body{
   margin: 0;
 }

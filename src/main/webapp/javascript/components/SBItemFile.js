@@ -5,7 +5,8 @@ import { Button } from 'react-bootstrap'
 export default class SBItemFile extends Component {
   movefile(fileurl) {
     console.log(fileurl)
-    this.props.stomper.send("/app/pull-link", {}, JSON.stringify({'link': fileurl}));
+    document.getElementById('transferstatus').innerHTML = ''
+    this.props.stomper.send("/app/pull-link",JSON.stringify({'link': fileurl}));
   }
   render () {
     var stompSocketClient;
