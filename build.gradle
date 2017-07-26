@@ -31,7 +31,7 @@ ext {
 
 node {
   version = '8.1.2'
-  // npmVersion = '5.0.3'
+  npmVersion = '5.0.3'
   download = false
 }
 
@@ -53,13 +53,13 @@ repositories {
 
 dependencyManagement {
     imports {
-        mavenBom 'com.amazonaws:aws-java-sdk-bom:1.10.47'
+        mavenBom 'com.amazonaws:aws-java-sdk-bom:1.11.106'
     }
 }
 
-//configurations {
-//  providedRuntime
-//}
+configurations {
+  providedRuntime
+}
 
 dependencies {
     compile('org.springframework.boot:spring-boot-starter-security')
