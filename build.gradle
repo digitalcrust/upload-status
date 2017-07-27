@@ -32,7 +32,7 @@ ext {
 node {
   version = '8.1.2'
   npmVersion = '5.0.3'
-  download = false
+  download = true
 }
 
 war {
@@ -90,7 +90,7 @@ task wrapper(type: Wrapper) {
 }
 
 clean.delete << file('node_modules')
-clean.delete << file('src/main/webapp')
+clean.delete << file('src/main/webapp/dist')
 
 task webpack(type: NodeTask, dependsOn: 'npmInstall' ) {
     script = project.file('node_modules/.bin/webpack')

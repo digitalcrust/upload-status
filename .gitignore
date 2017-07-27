@@ -52,6 +52,7 @@ crashlytics-build.properties
 # Project Specific
 ######################
 /src/main/webapp/dist
+.env
 
 ######################
 # Node
