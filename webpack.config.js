@@ -1,8 +1,8 @@
 var path = require('path');
 var webpack = require('webpack')
-var ROOT = path.resolve(__dirname, 'src/main/webapp');
+var ROOT = path.resolve(__dirname, 'src/main/app');
 var SRC = path.resolve(ROOT, 'javascript');
-var DEST = path.resolve(__dirname, 'src/main/webapp/dist');
+var DEST = path.resolve(__dirname, 'src/main/resources/static/dist');
  
 module.exports = {
   devtool: 'source-map',
@@ -11,8 +11,8 @@ module.exports = {
   },
   resolve: {
     modules: [
-      path.join(__dirname, 'src/main/webapp/javascript'),
-      path.join(__dirname, 'src/main/webapp/css'),
+      path.join(__dirname, 'src/main/app/javascript'),
+      path.join(__dirname, 'src/main/app/css'),
       "node_modules"
     ],
     extensions: ['.js', '.jsx']
@@ -29,7 +29,9 @@ module.exports = {
         loaders: ['babel-loader'],
         include: path.join(__dirname, 'src')
       },
-      {test: /\.css$/, loader: 'style-loader!css-loader'},
+      {
+        test: /\.css$/, loader: 'style-loader!css-loader'
+      },
       {test: /\.less$/, loader: 'style!css!less'},
  
       // Needed for the css-loader when [bootstrap-webpack](https://github.com/bline/bootstrap-webpack)

@@ -1,0 +1,8 @@
+apiVersion: v1
+kind: Secret
+metadata:
+  name: aws-credentials
+type: Opaque
+data:
+  accessKeyId: QUtJQUpKVjJaTlc0TklMTEtaTFE=
+  secretKey: MWNwcmFQWU5zRHZ1SDRwV2JlVzIrRGxzU0RJUkZpZ0Ntemc4N1Q1SA==
