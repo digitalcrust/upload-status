@@ -51,7 +51,7 @@ crashlytics-build.properties
 ######################
 # Project Specific
 ######################
-/src/main/webapp/dist
+/src/main/resources/static/dist
 .env
 
 ######################
