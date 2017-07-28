@@ -48,6 +48,17 @@ crashlytics.properties
 crashlytics-build.properties
 
 
+######################
+# Project Specific
+######################
+/src/main/resources/static/dist
+.env
+
+######################
+# Node
+######################
+/node/**
+/node_modules/**
 ### Eclipse ###
 *.pydevproject
 .metadata

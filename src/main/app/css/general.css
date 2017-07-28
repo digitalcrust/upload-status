@@ -1,0 +1,132 @@
+.seat {
+  display: inline-block;
+  width: 40px;
+  text-align: center;
+}
+ 
+.seat.open{
+  background-color: green;
+}
+ 
+.seat.reserved{
+  background-color: red;
+}
+ 
+.table{
+  margin-bottom: 10px;
+}
+ 
+.table-title{
+  font-weight: bold;
+}
+body {
+  font-family: "Helvetica Neue",Helvetica,Arial,"Lucida Grande",sans-serif;
+}
+label {
+  margin-right: 8px;
+}
+.scienceBaseItem  {
+  padding: 0.5rem;
+  background-color: rgb(245,245,245);
+  border: 1px solid #bbb;
+  margin: 5px 0 5px 0;
+}
+.websocket, .fileinput, .login {
+  margin: 8px 0;
+}
+.login {
+  float: right;
+}
+.title {
+  font-weight: 700;
+  font-size: 14px;
+  color: rgb(51, 122, 183);
+  font-weight: 400;
+  text-decoration: none;
+}
+.description {
+  font-size: 14px;
+  max-height: 4rem;
+  overflow-y: auto;
+}
+.files {
+  margin-left: 4px;
+}
+.filelink {
+  color: #2255aa;
+}
+.filesize {
+  margin-left: 1em;
+}
+.movefile {
+  margin-right: 4px;
+}
+.movefile button {
+  padding: 0 4px;
+  height: 26px;
+}
+.movefile button img {
+  height: 15px;
+}
+
+#usgsidentifier {
+  float: left;
+}
+#usgsbanner {
+}
+
+#usgscolorband {
+  width:  100%;
+  overflow: hidden;
+  background:  #000 url(https://www.sciencebase.gov/catalog/assets/usgs/images/blue_black-fe85a01835ccc438e0e097dad7a83cfa.jpg) 178px 0px no-repeat;
+}
+.navigation {
+  margin: 10px;
+}
+.navigation a, .navigation button {
+  padding: 1px 4px;
+  background: #eee;
+  border: 1px solid rgb(51, 122, 183);
+  font-weight: normal;
+  color: rgb(51, 122, 183);
+  font-size: 0.8em;
+  text-decoration: none;
+}
+.navigation a.previous {
+  border-radius: 3px 0 0 3px;
+  padding-left: 4px;
+}
+
+.navigation a.next {
+  border-radius: 0 3px 3px 0;
+  margin-left:10px;
+  padding-right: 4px;
+}
+.navigation button {
+  margin-left: 10px;
+  border-radius: 3px;
+  height: 22px;
+}
+
+#root{
+  margin: 10px;
+}
+
+.status {
+  margin: 4px 0;
+  background-color: #DDD;
+  scroll: auto;
+  white-space: nowrap; 
+  padding: 2px 0;
+}
+.sbitems {
+  border: 1px solid #bbb;
+  margin: 10px;
+  padding: 10px;
+}
+.transferstatus-wrapper {  
+  margin-bottom: 2px;
+}
+body{
+  margin: 0;
+}

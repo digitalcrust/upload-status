@@ -90,7 +90,7 @@ def environmentFromBranchName(String branchName) {
 
 def getNamespace(String branchName, String appName) {
     if (branchName == 'master') {
-        return 'pipeline'
+        return "pipeline"
     }
 
     return 'pipeline-dev' 

@@ -1,109 +1,12 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <title>Hello upload-status</title>
-  <link rel="shortcut icon" href="https://my.usgs.gov/resources/static/images/usgs-icon.ico" type="image/x-icon"/>
-  <link href="/webjars/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-  <script src="/webjars/jquery/jquery.min.js"></script>
-  <script src="/webjars/sockjs-client/sockjs.min.js"></script>
-  <script src="/webjars/stomp-websocket/stomp.min.js"></script>
-  <!--<script src="/app.js"></script>-->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/latest/css/bootstrap.min.css">
+  <meta charset="UTF-8">
+  <title>Upload Files</title>
 </head>
 <body>
-<noscript><h2 style="color: #ff0000">Seems your browser doesn't support Javascript! Websocket relies on Javascript being
-  enabled. Please enable
-  Javascript and reload this page!</h2></noscript>
-<div id="main-link" class="container">
-  <div class="row">
-    <div class="col-md-6">
-      <form class="form-inline">
-        <div class="form-group">
-          <label for="connect">WebSocket connection:</label>
-          <button id="connect" class="btn btn-default" type="submit">Connect</button>
-          <button id="disconnect" class="btn btn-default" type="submit" disabled="disabled">Disconnect
-          </button>
-        </div>
-      </form>
-    </div>
-    <div class="col-md-6">
-      <form class="form-inline">
-        <div class="form-group">
-          <label for="url">What is the URL?</label>
-          <input type="text" id="url" class="form-control" placeholder="http://URL-to-file/example.txt">
-          <input type="text" id="fileName" class="form-control" placeholder="example.txt">
-        </div>
-        <button id="send" class="btn btn-default" type="submit">Send</button>
-        <a href="/login/google">Login</a>
-      </form>
-      <form action="/logout" method="post">
-        <input type="submit" name="Logout"/>
-      </form>
-    </div>
-  </div>
-  <div class="row">
-    <div class="col-md-12">
-      <table id="updates" class="table table-striped">
-        <thead>
-        <tr>
-          <th>Updates</th>
-        </tr>
-        </thead>
-        <tbody id="pullUpdates">
-        </tbody>
-      </table>
-    </div>
-  </div>
-  </form>
-</div>
+<div id="content"></div>
+<script src="dist/bundle.js"></script>
 </body>
-<script type="text/javascript">
-    var stompClient = null;
-
-    function setConnected(connected) {
-        $("#connect").prop("disabled", connected);
-        $("#disconnect").prop("disabled", !connected);
-        if (connected) {
-            $("#updates").show();
-        }
-        else {
-            $("#updates").hide();
-        }
-        $("#pullUpdates").html("");
-    }
-
-    function connect() {
-        var socket = new SockJS('/upload-status-websocket');
-        stompClient = Stomp.over(socket);
-        stompClient.connect({}, function () {
-            setConnected(true);
-            stompClient.subscribe('/user/queue/pull-status', function (statusUpdate) {
-                showStatus(JSON.parse(statusUpdate.body).message);
-            });
-        });
-    }
-
-    function disconnect() {
-        if (stompClient != null) {
-            stompClient.disconnect();
-        }
-        setConnected(false);
-    }
-
-    function sendName() {
-        stompClient.send("/app/pull-link", {}, JSON.stringify({'link': $("#url").val(), 'fileName': $("#fileName").val()}));
-    }
-
-    function showStatus(message) {
-        $("#pullUpdates").append("<tr><td>" + message + "</td></tr>");
-    }
-
-    $(function () {
-        $("form").on('submit', function (e) {
-            e.preventDefault();
-        });
-        $( "#connect" ).click(function() { connect(); });
-        $( "#disconnect" ).click(function() { disconnect(); });
-        $( "#send" ).click(function() { sendName(); });
-    });
-</script>
 </html>
