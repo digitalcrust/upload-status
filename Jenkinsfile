@@ -93,5 +93,5 @@ def getNamespace(String branchName, String appName) {
         return "pipeline"
     }
 
-    return "${appName}-${branchName}"
+    return 'pipeline-dev' 
 }
