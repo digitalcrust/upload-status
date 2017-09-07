@@ -4,8 +4,6 @@ buildscript {
     }
     repositories {
         mavenLocal()
-        maven { url "https://ede.cr.usgs.gov/artifactory/libs-release" }
-        maven { url "http://artifactory/artifactory/libs-release" }
         jcenter()
     }
     dependencies {
